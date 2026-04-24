@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kenwood KR-9400 — 3D Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+
+  <header id="toolbar">
+    <div id="brand">
+      <span class="brand-make">KENWOOD</span>
+      <span class="brand-model">KR-9400</span>
+      <span class="brand-tag">3D Explorer</span>
+    </div>
+    <nav id="actions">
+      <button id="btn-reset" class="btn btn-ghost">Reset View</button>
+      <button id="btn-theme" class="btn btn-ghost">Light Mode</button>
+    </nav>
+    <p id="hint-text">Drag to orbit · Scroll to zoom · Click a part to inspect</p>
+  </header>
+
+  <aside id="info-panel">
+    <button id="panel-close" aria-label="Close">&times;</button>
+    <span id="panel-badge"></span>
+    <h2 id="panel-title"></h2>
+    <hr class="divider">
+    <p id="panel-body"></p>
+    <section id="panel-tips">
+      <h3>Diagnostic Notes</h3>
+      <ul id="panel-tips-list"></ul>
+    </section>
+  </aside>
+
+  <div id="tooltip"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
