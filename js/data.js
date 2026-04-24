@@ -3,7 +3,7 @@
 
 export const COMPONENTS = {
 
-
+  
   'Body': {
     name: 'Body',
     category: 'Body',
@@ -35,7 +35,7 @@ export const COMPONENTS = {
     ]
   },
 
-  'volume-knob': {
+  'volume': {
     name: 'Master Volume Control',
     category: 'Controls',
     description:
@@ -51,7 +51,7 @@ export const COMPONENTS = {
     ]
   },
 
-  'bass-knob': {
+  'bass': {
     name: 'Bass Tone Control',
     category: 'Tone Controls',
     description:
@@ -66,7 +66,7 @@ export const COMPONENTS = {
     ]
   },
 
-  'treble-knob': {
+  'treble': {
     name: 'Treble Tone Control',
     category: 'Tone Controls',
     description:
@@ -80,7 +80,7 @@ export const COMPONENTS = {
     ]
   },
 
-  'balance-knob': {
+  'balance': {
     name: 'Balance Control',
     category: 'Controls',
     description:
@@ -143,36 +143,36 @@ export const COMPONENTS = {
     ]
   },
 
-  'vu-left': {
-    name: 'Left Channel VU Meter',
-    category: 'Meters',
-    description:
-      'A moving-coil galvanometer calibrated in Volume Units (VU). The meter integrates the audio signal over ' +
-      'a 300ms window, displaying average program level rather than instantaneous peaks. The scale is ' +
-      'logarithmic: 0 VU corresponds to the KR-9400\'s rated output of 120W into 8 ohms. The warm amber ' +
-      'backlight is provided by a small #47 incandescent lamp (6.3V). The needle pivots on jeweled bearings ' +
-      'and is balanced with a counterweight, giving the characteristic graceful sweep.',
-    tips: [
-      'Needle sluggish or stuck: the meter mechanism has a bent needle or worn pivot — the meter assembly must be removed and carefully opened to repair',
-      'Left meter reads noticeably lower than right at the same volume: degraded output transistor or imbalanced bias in the left power amp stage',
-      'Backlight not working: the #47 lamp has burned out — a very common maintenance item on 40–50 year old receivers',
-    ]
-  },
+  // 'vu-left': {
+  //   name: 'Left Channel VU Meter',
+  //   category: 'Meters',
+  //   description:
+  //     'A moving-coil galvanometer calibrated in Volume Units (VU). The meter integrates the audio signal over ' +
+  //     'a 300ms window, displaying average program level rather than instantaneous peaks. The scale is ' +
+  //     'logarithmic: 0 VU corresponds to the KR-9400\'s rated output of 120W into 8 ohms. The warm amber ' +
+  //     'backlight is provided by a small #47 incandescent lamp (6.3V). The needle pivots on jeweled bearings ' +
+  //     'and is balanced with a counterweight, giving the characteristic graceful sweep.',
+  //   tips: [
+  //     'Needle sluggish or stuck: the meter mechanism has a bent needle or worn pivot — the meter assembly must be removed and carefully opened to repair',
+  //     'Left meter reads noticeably lower than right at the same volume: degraded output transistor or imbalanced bias in the left power amp stage',
+  //     'Backlight not working: the #47 lamp has burned out — a very common maintenance item on 40–50 year old receivers',
+  //   ]
+  // },
 
-  'vu-right': {
-    name: 'Right Channel VU Meter',
-    category: 'Meters',
-    description:
-      'Identical in construction to the left channel meter, monitoring the right channel output power. The pair ' +
-      'of meters provides real-time visual feedback about the amplifier\'s output level and helps immediately ' +
-      'identify a dead or degraded channel. The KR-9400\'s meters are matched at the factory to read within ' +
-      '±1 dB of each other. They are driven from a sensing circuit tapped off the speaker output, with a ' +
-      'series resistor setting the deflection sensitivity.',
-    tips: [
-      'Erratic or flickering needle: cold solder joint on the meter sense connection on the main amp board — re-flow the joint',
-      'Both meters pegged at maximum and won\'t move down: check for DC on the output rails — a failed output transistor can put DC voltage straight into the meter circuit',
-    ]
-  },
+  // 'vu-right': {
+  //   name: 'Right Channel VU Meter',
+  //   category: 'Meters',
+  //   description:
+  //     'Identical in construction to the left channel meter, monitoring the right channel output power. The pair ' +
+  //     'of meters provides real-time visual feedback about the amplifier\'s output level and helps immediately ' +
+  //     'identify a dead or degraded channel. The KR-9400\'s meters are matched at the factory to read within ' +
+  //     '±1 dB of each other. They are driven from a sensing circuit tapped off the speaker output, with a ' +
+  //     'series resistor setting the deflection sensitivity.',
+  //   tips: [
+  //     'Erratic or flickering needle: cold solder joint on the meter sense connection on the main amp board — re-flow the joint',
+  //     'Both meters pegged at maximum and won\'t move down: check for DC on the output rails — a failed output transistor can put DC voltage straight into the meter circuit',
+  //   ]
+  // },
 
   'loudness-switch': {
     name: 'Loudness Contour Switch',

@@ -159,13 +159,39 @@ class StereoExplorer {
 
     this.scene.add(root);
 
+    const interactive = [];
+    let highlighted = null;
+
+    root.traverse(obj => {
+      if (obj.isMesh && COMPONENTS[obj.name]) {
+        interactive.push({ mesh: obj, id: obj.name });
+      }
+    });
+
     this.model = {
       root,
-      tick()                 {},
-      getInteractiveMeshes() { return []; },
-      getIdForMesh()         { return null; },
-      highlight()            {},
-      unhighlight()          {},
+      tick() {},
+      getInteractiveMeshes() {
+        return interactive.map(e => e.mesh);
+      },
+      getIdForMesh(mesh) {
+        return interactive.find(e => e.mesh === mesh)?.id ?? null;
+      },
+      highlight(mesh) {
+        if (highlighted === mesh) return;
+        this.unhighlight();
+        highlighted = mesh;
+        mesh.userData._origEmissive     = mesh.material.emissive.getHex();
+        mesh.userData._origEmissiveInt  = mesh.material.emissiveIntensity ?? 0;
+        mesh.material.emissive.setHex(0xaaaaaa);
+        mesh.material.emissiveIntensity = 0.30;
+      },
+      unhighlight() {
+        if (!highlighted) return;
+        highlighted.material.emissive.setHex(highlighted.userData._origEmissive ?? 0x000000);
+        highlighted.material.emissiveIntensity = highlighted.userData._origEmissiveInt ?? 0;
+        highlighted = null;
+      },
     };
   }
 
