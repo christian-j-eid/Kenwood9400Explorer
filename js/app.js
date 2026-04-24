@@ -181,15 +181,15 @@ class StereoExplorer {
         if (highlighted === mesh) return;
         this.unhighlight();
         highlighted = mesh;
-        mesh.userData._origEmissive     = mesh.material.emissive.getHex();
-        mesh.userData._origEmissiveInt  = mesh.material.emissiveIntensity ?? 0;
+        mesh.userData._origMaterial = mesh.material;
+        mesh.material = mesh.material.clone();
         mesh.material.emissive.setHex(0xaaaaaa);
         mesh.material.emissiveIntensity = 0.30;
       },
       unhighlight() {
         if (!highlighted) return;
-        highlighted.material.emissive.setHex(highlighted.userData._origEmissive ?? 0x000000);
-        highlighted.material.emissiveIntensity = highlighted.userData._origEmissiveInt ?? 0;
+        highlighted.material.dispose();
+        highlighted.material = highlighted.userData._origMaterial;
         highlighted = null;
       },
     };
