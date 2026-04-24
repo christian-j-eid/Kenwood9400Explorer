@@ -3,22 +3,6 @@
 
 export const COMPONENTS = {
 
-  
-  'Body': {
-    name: 'Body',
-    category: 'Body',
-    description:
-      'The main power switch connects 120V AC mains voltage to the primary winding of the power transformer. ' +
-      'The KR-9400\'s switch is a heavy-duty rocker type rated for the full startup surge current — which can be ' +
-      'several times the steady-state draw as the large filter capacitors charge from zero. After switching on, ' +
-      'there is a brief 2-3 second delay before audio passes through: the output protection relay waits for the ' +
-      'DC rails to stabilize before connecting the speakers, preventing the loud thump that would otherwise damage them.',
-    tips: [
-      'Unit dead after switching on: check the rear-panel fuse (2A slow-blow) and the internal power supply fuse',
-      'Soft "click" followed by silence: the protection relay may be tripping due to excessive DC offset — check output transistors',
-      'Fuse blows instantly: strongly suggests a shorted output transistor or failed rectifier diode in the power supply bridge',
-    ]
-  },
   'power-switch': {
     name: 'Power Switch',
     category: 'Power',
@@ -65,7 +49,22 @@ export const COMPONENTS = {
       'Crackling during adjustment indicates a dirty pot — same cleaning procedure as the volume control',
     ]
   },
-
+  'mid': {
+    name: 'Midrange Tone Control',
+    category: 'Tone Controls',
+    description:
+      'A peaking equalizer centered around 1 kHz — the heart of the audible frequency range where vocals, ' +
+      'guitars, and most acoustic instruments live. Unlike the bass and treble shelving controls, the midrange ' +
+      'control uses a bell-shaped (peaking) curve that boosts or cuts a band of frequencies centered at the ' +
+      'turnover point, leaving frequencies above and below relatively unaffected. The KR-9400 provides ±10 dB ' +
+      'of midrange adjustment. This is the control most responsible for perceived "warmth" or "presence" — ' +
+      'a cut at 1 kHz can add perceived depth and space; a boost emphasizes vocal clarity and attack.',
+    tips: [
+      'Boosting the midrange aggressively (beyond +6 dB) makes the sound nasal and fatiguing on long listening sessions',
+      'A gentle mid cut (−3 to −6 dB) is a classic technique to add perceived bass and treble without actually boosting them',
+      'Crackling during adjustment indicates oxidized pot tracks — clean with DeoxIT D5 and rotate through the full range several times',
+    ]
+  },
   'treble': {
     name: 'Treble Tone Control',
     category: 'Tone Controls',
