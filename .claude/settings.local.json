@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(python3 -m http.server 8742)",
-      "Bash(echo \"Server PID: $!\")"
+      "Bash(echo \"Server PID: $!\")",
+      "Bash(git -C /Users/christianeid/Documents/Projects/StereoProject log --oneline -10)"
     ]
   }
 }

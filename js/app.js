@@ -73,7 +73,7 @@ class StereoExplorer {
       0.1,
       600,
     );
-    this.camera.position.set(0, 22, 82);
+    this.camera.position.set(60, 45, 30);
     this.camera.lookAt(0, 0, 0);
     this._defaultCameraPos = this.camera.position.clone();
     this._defaultTarget    = new THREE.Vector3(0, 0, 0);
