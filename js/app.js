@@ -292,6 +292,7 @@ class StereoExplorer {
     const comp = COMPONENTS[id];
 
     document.getElementById('panel-badge').textContent = comp.category;
+    document.getElementById('panel-type').textContent  = comp.type ?? '';
     document.getElementById('panel-title').textContent = comp.name;
     document.getElementById('panel-body').textContent  = comp.description;
 
