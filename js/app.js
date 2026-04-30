@@ -131,18 +131,36 @@ class StereoExplorer {
     this.controls.minDistance    = 28;
     this.controls.maxDistance    = 160;
     this.controls.maxPolarAngle  = Math.PI * 0.62;
+    this._defaultMaxPolar = Math.PI * 0.62;
     this.controls.target.set(0, 0, 0);
     this.controls.update();
   }
 
   // ── Model ─────────────────────────────────────────────────────────────────────
 
-  async _buildModel() {
+  _buildModel() {
+    this._loadModel('model/Kenwood9400v1.glb');
+  }
+
+  async _loadModel(path) {
+    // Tear down the current model
+    this.model.unhighlight();
+    if (this.model.root) {
+      this.scene.remove(this.model.root);
+      this.model.root.traverse(obj => {
+        if (obj.isMesh) {
+          obj.geometry.dispose();
+          const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+          mats.forEach(m => m.dispose());
+        }
+      });
+    }
+    this._hidePanel();
+
     const loader = new GLTFLoader();
-    const gltf   = await loader.loadAsync('model/Kenwood9400v0.glb');
+    const gltf   = await loader.loadAsync(path);
     const root   = gltf.scene;
 
-    // Center and scale to fit the scene (~50 units wide)
     const bbox   = new THREE.Box3().setFromObject(root);
     const center = bbox.getCenter(new THREE.Vector3());
     const size   = bbox.getSize(new THREE.Vector3());
@@ -162,11 +180,22 @@ class StereoExplorer {
     const interactive = [];
     let highlighted = null;
 
+    const allNames = new Set();
+    root.traverse(obj => { if (obj.name) allNames.add(obj.name); });
+    console.log('All GLB object names:', [...allNames].sort());
+
     root.traverse(obj => {
-      if (obj.isMesh && COMPONENTS[obj.name]) {
-        interactive.push({ mesh: obj, id: obj.name });
+      if (!obj.isMesh) return;
+      let node = obj;
+      while (node) {
+        if (COMPONENTS[node.name]) {
+          interactive.push({ mesh: obj, id: node.name });
+          break;
+        }
+        node = node.parent;
       }
     });
+    console.log('Registered interactive IDs:', [...new Set(interactive.map(e => e.id))].sort());
 
     this.model = {
       root,
@@ -218,7 +247,43 @@ class StereoExplorer {
     document.getElementById('btn-reset').addEventListener('click', () => {
       this.controls.target.copy(this._defaultTarget);
       this.camera.position.copy(this._defaultCameraPos);
+      this.controls.maxPolarAngle = this._defaultMaxPolar;
+      document.getElementById('btn-underside').classList.remove('active');
       this.controls.update();
+    });
+
+    // Underside view
+    document.getElementById('btn-underside').addEventListener('click', () => {
+      const btn = document.getElementById('btn-underside');
+      const isUnderside = btn.classList.toggle('active');
+      if (isUnderside) {
+        this.controls.maxPolarAngle = Math.PI;
+        this.camera.position.set(0, -45, 25);
+        this.controls.target.set(0, 0, 0);
+      } else {
+        this.controls.maxPolarAngle = this._defaultMaxPolar;
+        this.camera.position.copy(this._defaultCameraPos);
+        this.controls.target.copy(this._defaultTarget);
+      }
+      this.controls.update();
+    });
+
+    // Open / Closed model toggle
+    const btnOpen   = document.getElementById('btn-open');
+    const btnClosed = document.getElementById('btn-closed');
+
+    btnOpen.addEventListener('click', () => {
+      if (btnOpen.classList.contains('active')) return;
+      btnOpen.classList.add('active');
+      btnClosed.classList.remove('active');
+      this._loadModel('model/Kenwood9400v1.glb');
+    });
+
+    btnClosed.addEventListener('click', () => {
+      if (btnClosed.classList.contains('active')) return;
+      btnClosed.classList.add('active');
+      btnOpen.classList.remove('active');
+      this._loadModel('model/Kenwood9400v1closed.glb');
     });
 
     // Close panel

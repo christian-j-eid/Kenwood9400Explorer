@@ -427,4 +427,215 @@ export const COMPONENTS = {
     ]
   },
 
+  // ── Internal PCB units (Blender mesh names) ──
+
+  'power-supply-unit': {
+    name: 'Power Supply Unit',
+    type: 'Circuit Board',
+    category: 'Power Supply',
+    description:
+      'Houses the bridge rectifier, filter capacitors, and voltage regulation circuitry that converts the ' +
+      'transformer\'s AC secondaries into clean DC rails. Supplies ±78V DC to the power amplifier and ' +
+      'regulated lower voltages to the preamp and tuner sections.',
+    tips: [
+      'Hum on all inputs: start diagnosis here — a failing rectifier diode or dried filter cap is the most common cause',
+      'Measure DC rail voltages first when troubleshooting — a sagging rail points directly to this unit',
+    ]
+  },
+
+  'main-amp-unit': {
+    name: 'Main Amplifier Unit',
+    type: 'Circuit Board',
+    category: 'Power Amplifier',
+    description:
+      'The primary power amplifier board for one channel. Runs the full signal chain from differential input ' +
+      'pair through the voltage amplification stage, driver transistors, and output devices. Carries the ' +
+      'DC offset and bias adjustment trimmers.',
+    tips: [
+      'DC offset target: <±10mV at the speaker terminal with no input signal',
+      'Bias too low: audible crossover distortion; too high: output transistors overheat',
+      'Cold solder joints around the driver transistors are the most common cause of intermittent distortion',
+    ]
+  },
+
+  'main-amp-unit-2': {
+    name: 'Main Amplifier Unit (Ch. 2)',
+    type: 'Circuit Board',
+    category: 'Power Amplifier',
+    description:
+      'Mirror of the main amplifier unit for the second channel. Identical circuit topology — each channel ' +
+      'has its own independent board so a fault in one does not affect the other.',
+    tips: [
+      'Compare readings between both amp units when diagnosing — asymmetry between channels quickly identifies which board has the fault',
+      'Bias and offset trimmers on both boards should be set independently',
+    ]
+  },
+
+  'rf-unit': {
+    name: 'RF Front-End Unit',
+    type: 'Circuit Board',
+    category: 'Tuner',
+    description:
+      'The first stage of the FM tuner — amplifies the weak antenna signal and mixes it with the local ' +
+      'oscillator to produce the 10.7 MHz intermediate frequency. Uses a 5-gang variable capacitor for ' +
+      'tuning. Sensitivity and image rejection are determined almost entirely by this unit.',
+    tips: [
+      'Poor sensitivity on all FM stations: suspect the RF amplifier transistor or a detuned input coil',
+      'Image interference (a station heard at two dial positions): the front-end tracking is misaligned — requires signal generator alignment',
+    ]
+  },
+
+  'push-sw-unit-a': {
+    name: 'Push Switch Unit A',
+    type: 'Switch Assembly',
+    category: 'Controls',
+    description:
+      'A bank of illuminated push-button switches for source and function selection on the front panel. ' +
+      'Each button latches mechanically and routes the corresponding signal path through the selector circuit.',
+    tips: [
+      'Button physically stuck: the latch mechanism has corroded or a broken spring — disassemble and clean or replace the switch',
+      'Function selected but no audio: the switch contacts are oxidized — apply contact cleaner and actuate repeatedly',
+    ]
+  },
+
+  'push-sw-unit-b': {
+    name: 'Push Switch Unit B',
+    type: 'Switch Assembly',
+    category: 'Controls',
+    description:
+      'A second bank of push-button switches controlling additional functions such as filter engagement, ' +
+      'loudness, and tape monitoring. Operates identically to Push Switch Unit A.',
+    tips: [
+      'Intermittent function with button pressed: worn contact — clean with DeoxIT and exercise the switch',
+      'Button lamp not lighting: the indicator bulb has burned out — a common maintenance item on vintage receivers',
+    ]
+  },
+
+  'lever-sw-unit-b': {
+    name: 'Lever Switch Unit B',
+    type: 'Switch Assembly',
+    category: 'Controls',
+    description:
+      'A bank of lever (slide) switches for mode and filter selection. Lever switches use a wiping contact ' +
+      'action that can accumulate oxidation over decades, causing intermittent switching behavior.',
+    tips: [
+      'Scratchy or intermittent switching: apply DeoxIT D5 to the contact area and slide each switch through its range several times',
+      'Switch feels loose or no longer latches: the detent spring has fatigued — replacement is the only fix',
+    ]
+  },
+
+  'pre-amp-unit': {
+    name: 'Preamplifier Unit',
+    type: 'Circuit Board',
+    category: 'Preamplifier',
+    description:
+      'Contains the phono stage (RIAA equalization, ~40 dB gain), tone control active stage, and input ' +
+      'buffer. Moving-magnet cartridge signals of 2–5mV enter here; line-level sources bypass the phono ' +
+      'stage and connect directly to the selector.',
+    tips: [
+      'Hum on phono only: connect the turntable ground wire to the rear GND terminal',
+      'Excessive phono hiss: input transistors have degraded with age — modern low-noise replacements available',
+    ]
+  },
+
+  'multipath-unit': {
+    name: 'Multipath Detection Unit',
+    type: 'Circuit Board',
+    category: 'Tuner',
+    description:
+      'Dedicated circuitry that monitors the 38 kHz stereo subcarrier level as a proxy for multipath ' +
+      'interference. Drives the front-panel multipath meter. A higher reading means more reflected signal ' +
+      'is arriving at the antenna.',
+    tips: [
+      'Meter reads high even on a strong local station: the unit\'s detector circuit may have a failed component, or the station genuinely has multipath at your location',
+      'Meter completely dead: check the connection between this board and the IF unit',
+    ]
+  },
+
+  'MPX-unit': {
+    name: 'MPX Stereo Decoder Unit',
+    type: 'Circuit Board',
+    category: 'Tuner',
+    description:
+      'Decodes the FM stereo multiplex signal. Locks onto the 19 kHz stereo pilot tone, generates a ' +
+      '38 kHz subcarrier, and separates the composite audio into independent left and right channels. ' +
+      'If no pilot tone is detected, it outputs mono.',
+    tips: [
+      'Stereo indicator won\'t light on strong stations: the 19 kHz pilot detector threshold needs trimmer adjustment',
+      'Stereo reception sounds like mono: the 38 kHz VCO has drifted — realign the decoder trimmer per the service manual',
+      'Noisy stereo on marginal stations: switch to MONO — the decoder adds significant noise when the pilot signal is weak',
+    ]
+  },
+
+  'if-unit': {
+    name: 'IF Amplifier Unit',
+    type: 'Circuit Board',
+    category: 'Tuner',
+    description:
+      'Amplifies and filters the 10.7 MHz intermediate frequency signal from the RF front-end. A series ' +
+      'of ceramic or LC filters provide the selectivity that rejects adjacent stations. The limiter stage ' +
+      'removes AM noise from the FM carrier before demodulation.',
+    tips: [
+      'Poor adjacent-channel rejection (nearby stations bleeding through): an IF filter has drifted or failed',
+      'Distortion on strong local stations: the limiter may be overdriven — check the IF gain trimmer',
+    ]
+  },
+
+  'lever-sw-unit': {
+    name: 'Lever Switch Unit',
+    type: 'Switch Assembly',
+    category: 'Controls',
+    description:
+      'A grouped assembly of lever switches on a shared mounting bracket, controlling related functions ' +
+      'such as filters, tape monitoring, and tone defeat. Each switch operates independently but they ' +
+      'share a common PCB connection point.',
+    tips: [
+      'One switch in the unit intermittent while others work: the fault is isolated to that switch\'s contacts — clean with DeoxIT D5',
+      'All switches in the unit dead simultaneously: check the common ground or power connection to the unit\'s PCB',
+    ]
+  },
+
+  'lever-sw': {
+    name: 'Lever Switch',
+    type: 'Lever Switch',
+    category: 'Controls',
+    description:
+      'A slide-action switch used for mode and function selection on the front panel. The lever mechanism ' +
+      'uses a wiping contact that can oxidize over decades, causing intermittent or noisy switching.',
+    tips: [
+      'Scratchy or intermittent action: apply DeoxIT D5 to the contact area and slide through the full range several times',
+      'Switch no longer latches in position: the detent spring has fatigued and needs replacement',
+    ]
+  },
+
+  'electrytic-capacitor': {
+    name: 'Electrolytic Capacitor',
+    type: 'Electrolytic Capacitor',
+    category: 'Components',
+    description:
+      'Polarized capacitors used throughout the signal and power supply paths for filtering, coupling, and ' +
+      'bypassing. Electrolytics have a finite lifespan — the liquid electrolyte slowly evaporates over ' +
+      'decades, reducing capacitance and increasing ESR (equivalent series resistance).',
+    tips: [
+      'Bulging tops or visible leakage: replace immediately — a vented cap can damage nearby components',
+      'Hum, distortion, or reduced bass: often caused by dried-out coupling or filter caps losing capacitance',
+      'Age alone is reason enough to recap — caps from the 1970s are well past their rated lifespan',
+    ]
+  },
+
+  'tone-amp-unit': {
+    name: 'Tone Amplifier Unit',
+    type: 'Circuit Board',
+    category: 'Preamplifier',
+    description:
+      'The active stage that buffers and amplifies the signal through the passive bass, mid, and treble ' +
+      'tone control networks. Provides the gain needed to compensate for the insertion loss of the passive ' +
+      'RC tone network. Bypassed entirely when Tone Defeat is engaged.',
+    tips: [
+      'Low output level on all sources with tone defeat off but normal with it on: a component in the active stage has failed',
+      'Distortion only when tone controls are away from center: check the op-amp or transistor pair in this unit',
+    ]
+  },
+
 };
+
